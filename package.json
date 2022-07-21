@@ -1,0 +1,87 @@
+{
+  "name": "midway-vue3-ssr",
+  "version": "1.0.0",
+  "description": "基于 Midway、Vue 3 组装的 SSR 框架，简单、易学易用、方便扩展、集成Midway框架，您一直想要的Vue SSR 框架。",
+  "private": true,
+  "dependencies": {
+    "@midwayjs/bootstrap": "^3.0.0",
+    "@midwayjs/core": "^3.0.0",
+    "@midwayjs/decorator": "^3.0.0",
+    "@midwayjs/info": "^3.0.0",
+    "@midwayjs/koa": "^3.0.0",
+    "@midwayjs/logger": "^2.14.0",
+    "@midwayjs/static-file": "^3.0.0",
+    "@midwayjs/validate": "^3.0.0",
+    "koa-connect": "^2.1.0",
+    "pinia": "^2.0.14",
+    "vue": "^3.2.37",
+    "vue-router": "^4.1.0",
+    "axios": "^0.21.4",
+    "element-plus": "^2.2.2",
+    "normalize.css": "^8.0.1",
+    "nprogress": "^0.2.0"
+  },
+  "devDependencies": {
+    "@midwayjs/cli": "^1.2.90",
+    "@midwayjs/mock": "^3.0.0",
+    "@types/jest": "^26.0.10",
+    "@types/koa": "^2.13.4",
+    "@types/node": "14",
+    "cross-env": "^6.0.0",
+    "jest": "^26.4.0",
+    "mwts": "^1.0.5",
+    "only-allow": "^1.1.1",
+    "ts-jest": "^26.2.0",
+    "typescript": "~4.6.0",
+    "@vitejs/plugin-vue": "^2.3.3",
+    "vite": "^2.9.9",
+    "vue-tsc": "^0.34.7",
+    "rollup-plugin-analyzer": "^4.0.0",
+    "sass": "^1.52.1"
+  },
+  "engines": {
+    "node": ">=12.0.0"
+  },
+  "scripts": {
+    "start": "cross-env NODE_ENV=production node ./bootstrap.js",
+    "dev": "cross-env NODE_ENV=local midway-bin dev --ts",
+    "build": "pnpm run clean && pnpm run build:midway && pnpm run build:web",
+    "build:midway": "midway-bin build -c",
+    "build:web": "pnpm run build:web:client && pnpm run build:web:server",
+    "build:web:client": "vite --config web/vite.config.ts build --ssrManifest --outDir ../build/client",
+    "build:web:server": "vite --config web/vite.config.ts build --ssr entry-server --outDir ../build/server",
+    "clean": "midway-bin clean",
+    "test": "midway-bin test --ts",
+    "cov": "midway-bin cov --ts",
+    "lint": "mwts check",
+    "lint:fix": "mwts fix",
+    "ci": "npm run cov",
+    "preinstall": "only-allow pnpm"
+  },
+  "midway-bin-clean": [
+    ".vscode/.tsbuildinfo",
+    "build",
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "keywords": [
+    "vue3",
+    "midway",
+    "midwayjs",
+    "element-plus",
+    "antdv",
+    "antd",
+    "typescript",
+    "pinia",
+    "pnpm"
+  ],
+  "author": "LiQingSong<957698457@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/lqsong/midway-vue3-ssr/issues"
+  },
+  "homepage": "https://github.com/lqsong/midway-vue3-ssr#readme"
+}
