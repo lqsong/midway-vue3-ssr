@@ -4,7 +4,7 @@
 ## 使用文档
 
  - [http://midway-vue3-ssr.liqingsong.cc/](http://midway-vue3-ssr.liqingsong.cc/)
- - [Github](https://github.com/lqsong/midway-vue3-ssr) 
+ - [Github](https://github.com/lqsong/midway-vue3-ssr)
  - [Gitee](https://gitee.com/lqsong/midway-vue3-ssr)
 
 ## 后台前端解决方案列表
@@ -20,7 +20,7 @@
 ## 前台前端SSR解决方案列表
 
  - midway-vue3-ssr（[GitHub](https://github.com/lqsong/midway-vue3-ssr)、[Gitee](https://gitee.com/lqsong/midway-vue3-ssr)）
- 
+
 
 ## 快速入门
 
@@ -34,13 +34,15 @@ $ pnpm dev
 $ open http://localhost:8002/
 ```
 
+> 推荐使用 pm2 部署 , **[PM2安装与常用命令](http://liqingsong.cc/article/detail/3)** 。
+
 ### 部署
 
 ```bash
 $ pnpm i # 安装开发期依赖
 $ pnpm build # 构建项目
 $ pnpm prune --production  # 移除开发依赖
-$ pnpm start # 启动项目，对应的 pm2 命令为: NODE_ENV=production pm2 start ./bootstrap.js --name midway_vue3_ssr -i 4 
+$ pnpm start # 启动项目，对应的 pm2 命令为: NODE_ENV=production pm2 start ./bootstrap.js --name midway_vue3_ssr -i 4
 ```
 
 ## 捐赠
