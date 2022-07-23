@@ -79,6 +79,11 @@ export async function renderProd(ctx: Context) {
   }
 }
 
-export async function render(ctx: Context, viteServer: vite.ViteDevServer) {
-  return isProd ? renderProd(ctx) : renderDev(ctx, viteServer);
+export async function render(ctx: Context, app: Application) {
+  if (isProd) {
+    return renderProd(ctx);
+  } else {
+    const vServer = await createViteServer(app);
+    return renderDev(ctx, vServer);
+  }
 }
