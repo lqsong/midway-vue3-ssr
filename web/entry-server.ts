@@ -1,13 +1,15 @@
+import { Readable } from 'stream';
 import { RouteLocationRaw, RouteMeta } from 'vue-router';
-import { renderToString } from 'vue/server-renderer';
+import { renderToString, renderToNodeStream } from 'vue/server-renderer';
 import { isPromise } from '@/utils/promise';
 import settings from '@/config/settings';
 import { createApp } from './main';
 
 export async function render(
   to: RouteLocationRaw,
-  manifest: Record<string, string[]>
-): Promise<[string, string, RouteMeta, string]> {
+  manifest: Record<string, string[]>,
+  isStream = false
+) : Promise<[string | Readable, string, RouteMeta, string]>{
   const { app, router, pinia } = createApp('memory');
 
   await router.push(to);
@@ -62,12 +64,17 @@ export async function render(
   }
 
   const renderCtx: { modules?: string[] } = {};
-  const renderedHtml = await renderToString(app, renderCtx);
-
-  const preloadLinks = renderPreloadLinks(renderCtx.modules, manifest);
+  let readableHtml: string | Readable;
+  let preloadLinks = '';
+  if(isStream) {
+    readableHtml =  renderToNodeStream(app);
+  } else {
+    readableHtml =  await renderToString(app, renderCtx);
+    preloadLinks = renderPreloadLinks(renderCtx.modules, manifest);
+  }
 
   const state = JSON.stringify(pinia.state.value);
-  return [renderedHtml, preloadLinks, meta, state];
+  return [readableHtml, preloadLinks, meta, state];
 }
 
 function renderPreloadLinks(
