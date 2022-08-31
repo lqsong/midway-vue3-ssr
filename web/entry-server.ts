@@ -9,7 +9,7 @@ export async function render(
   to: RouteLocationRaw,
   manifest: Record<string, string[]>,
   isStream = false
-) : Promise<[string | Readable, string, RouteMeta, string]>{
+): Promise<[string | Readable, string, RouteMeta, string]> {
   const { app, router, pinia } = createApp('memory');
 
   await router.push(to);
@@ -66,10 +66,10 @@ export async function render(
   const renderCtx: { modules?: string[] } = {};
   let readableHtml: string | Readable;
   let preloadLinks = '';
-  if(isStream) {
-    readableHtml =  renderToNodeStream(app);
+  if (isStream) {
+    readableHtml = renderToNodeStream(app);
   } else {
-    readableHtml =  await renderToString(app, renderCtx);
+    readableHtml = await renderToString(app, renderCtx);
     preloadLinks = renderPreloadLinks(renderCtx.modules, manifest);
   }
 

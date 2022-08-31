@@ -11,7 +11,7 @@ import fs from 'fs';
 import { merge2, stringToStream } from './util/stream';
 
 interface IRenderResponse {
-  readableHtml:string | Readable;
+  readableHtml: string | Readable;
   preloadLinks: string;
   meta: any;
   state: string;
@@ -38,24 +38,37 @@ export async function createViteServer(app: Application) {
   return viteServer;
 }
 
-export function renderCommon(ctx: Context, template: string, renderResponse: IRenderResponse,  isStream: boolean) {
+export function renderCommon(
+  ctx: Context,
+  template: string,
+  renderResponse: IRenderResponse,
+  isStream: boolean
+) {
   const { readableHtml, preloadLinks, meta, state } = renderResponse;
   const html = template
-      .replace('"<!--app--vue-state-->"', state)
-      .replace('<!--app-title-->', meta.title)
-      .replace('!--app-keywords--', meta.keywords)
-      .replace('!--app-description--', meta.description)
-      .replace('<!--preload-links-->', preloadLinks);
+    .replace('"<!--app--vue-state-->"', state)
+    .replace('<!--app-title-->', meta.title)
+    .replace('!--app-keywords--', meta.keywords)
+    .replace('!--app-description--', meta.description)
+    .replace('<!--preload-links-->', preloadLinks);
   // 不启用 stream
-  if(!isStream) {
-    return html.replace('<!--app-html-->', readableHtml as string)
+  if (!isStream) {
+    return html.replace('<!--app-html-->', readableHtml as string);
   }
 
   const htmlArr = html.split('<!--app-html-->');
-  return merge2(stringToStream(htmlArr[0]), readableHtml, stringToStream(htmlArr[1]));
+  return merge2(
+    stringToStream(htmlArr[0]),
+    readableHtml,
+    stringToStream(htmlArr[1])
+  );
 }
 
-export async function renderDev(ctx: Context, viteServer: vite.ViteDevServer, isStream = false,) {
+export async function renderDev(
+  ctx: Context,
+  viteServer: vite.ViteDevServer,
+  isStream = false
+) {
   try {
     let template = fs.readFileSync(resolve('../web/index.html'), 'utf-8');
     template = await viteServer.transformIndexHtml(ctx.originalUrl, template);
@@ -66,7 +79,12 @@ export async function renderDev(ctx: Context, viteServer: vite.ViteDevServer, is
       isStream
     );
 
-    return renderCommon(ctx, template, {readableHtml, preloadLinks, meta, state}, isStream);
+    return renderCommon(
+      ctx,
+      template,
+      { readableHtml, preloadLinks, meta, state },
+      isStream
+    );
   } catch (e) {
     viteServer && viteServer.ssrFixStacktrace(e);
     console.log(e.stack);
@@ -89,7 +107,12 @@ export async function renderProd(ctx: Context, isStream = false) {
       manifest,
       isStream
     );
-    return renderCommon(ctx, template, {readableHtml, preloadLinks, meta, state}, isStream);
+    return renderCommon(
+      ctx,
+      template,
+      { readableHtml, preloadLinks, meta, state },
+      isStream
+    );
   } catch (e) {
     ctx.throw(500, e.stack);
   }
