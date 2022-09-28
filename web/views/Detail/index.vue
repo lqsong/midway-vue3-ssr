@@ -3,7 +3,8 @@ import { defineComponent, computed } from 'vue'
 import { useDetailStore } from "./store";
 import { Article } from "./data.d";
 export default defineComponent({
-  async asyncData({store, route}) {
+  async asyncData({store, route, router, ctx}) {
+    // console.log('router, ctx', router, ctx);
     const query = route.query || {};
     const id = query.id?.toString() || '';
     const detailStore = useDetailStore(store);

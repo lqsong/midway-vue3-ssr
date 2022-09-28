@@ -1,4 +1,5 @@
 import { Readable } from 'stream';
+import { Context } from '@midwayjs/koa';
 import { RouteLocationRaw, RouteMeta } from 'vue-router';
 import { renderToString, renderToNodeStream } from 'vue/server-renderer';
 import { isPromise } from '@/utils/promise';
@@ -6,11 +7,13 @@ import settings from '@/config/settings';
 import { createApp } from './main';
 
 export async function render(
-  to: RouteLocationRaw,
+  ctx: Context,
   manifest: Record<string, string[]>,
   isStream = false
 ): Promise<[string | Readable, string, RouteMeta, string]> {
   const { app, router, pinia } = createApp('memory');
+
+  const to: RouteLocationRaw = ctx.originalUrl;
 
   await router.push(to);
   await router.isReady();
@@ -34,6 +37,8 @@ export async function render(
   const config = {
     store: pinia,
     route: route.value,
+    router,
+    ctx,
   };
 
   /* 获取 asyncDataFun 集合 */

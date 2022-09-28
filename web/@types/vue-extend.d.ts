@@ -1,4 +1,5 @@
-import { RouteLocationNormalizedLoaded } from 'vue-router';
+import { Context } from '@midwayjs/koa';
+import { RouteLocationNormalizedLoaded, Router } from 'vue-router';
 import { Pinia } from 'pinia';
 
 export interface Seo {
@@ -10,6 +11,8 @@ export interface Seo {
 export interface IAsyncDataContext {
   route: RouteLocationNormalizedLoaded;
   store: Pinia;
+  router: Router;
+  ctx?: Context;
 }
 declare module 'vue' {
   interface ComponentCustomOptions {

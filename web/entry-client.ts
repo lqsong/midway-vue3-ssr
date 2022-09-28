@@ -46,6 +46,8 @@ router.beforeResolve((to, from, next) => {
   const config = {
     store: pinia,
     route: to,
+    router,
+    ctx: undefined,
   };
 
   /* 获取 asyncDataFun 集合 */
