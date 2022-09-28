@@ -74,7 +74,7 @@ export async function renderDev(
     template = await viteServer.transformIndexHtml(ctx.originalUrl, template);
     const { render } = await viteServer.ssrLoadModule('/entry-server.ts');
     const [readableHtml, preloadLinks, meta, state] = await render(
-      ctx.originalUrl,
+      ctx,
       {},
       isStream
     );
