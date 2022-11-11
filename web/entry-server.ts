@@ -34,6 +34,12 @@ export async function render(
     }
   });
 
+  /**
+   * config.router参数与客户端entry-client.ts中的config.router参数，router.currentRoute.value值不一致 原因:
+   * 因为服务端先执行了await router.isReady();，所以router.currentRoute.value的值是to
+   * 客户端entry-client.ts中当前路由还么有执行next()跳转，所以router.currentRoute.value的值还是from
+   * 所以asyncDataFun 集合中执行的请求，如果需要当前页面路由参数请用route获取
+   */
   const config = {
     store: pinia,
     route: route.value,
