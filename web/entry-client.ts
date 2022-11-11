@@ -43,6 +43,13 @@ router.beforeResolve((to, from, next) => {
     }
   });
 
+  /**
+   * to 赋值给 router.currentRoute.value 原因:
+   * 因为当前路由还么有执行next()跳转，所以router.currentRoute.value的值还是from
+   * 但是 asyncDataFun 集合中执行的请求，路由参数都是基于next()跳转成功对应的路由
+   * 所以需要to 赋值给 router.currentRoute.value
+   */
+  router.currentRoute.value = to;
   const config = {
     store: pinia,
     route: to,
