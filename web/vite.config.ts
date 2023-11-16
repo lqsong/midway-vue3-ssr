@@ -1,13 +1,16 @@
 /* eslint-disable node/no-unpublished-import */
 import { resolve } from 'path';
-import { defineConfig, Plugin } from 'vite';
+import { defineConfig, Plugin, UserConfigExport } from 'vite';
 import vue from '@vitejs/plugin-vue';
 import viteCompression from 'vite-plugin-compression';
 import analyzer from 'rollup-plugin-analyzer';
 
+// 是否是客户端构建
+const isClientBuild = process.env.npm_lifecycle_event === 'build:web:client';
+
 // https://vitejs.dev/config/
 export default defineConfig((/* { mode, command } */) => {
-  // 插件
+  /* 插件 S */
   const plugins: (Plugin | Plugin[])[] = [
     vue(),
     analyzer({ summaryOnly: true }),
@@ -27,7 +30,8 @@ export default defineConfig((/* { mode, command } */) => {
     }),
   ];
 
-  return {
+  /* 公共配置 S */
+  const config: UserConfigExport = {
     root: 'web',
     resolve: {
       alias: {
@@ -47,4 +51,13 @@ export default defineConfig((/* { mode, command } */) => {
     },
     plugins,
   };
+
+  /* 不同端配置 S */
+  if (true === isClientBuild) {
+    // 一、客户端构建
+  } else {
+    // 二、否则服务端构建
+  }
+
+  return config;
 });
