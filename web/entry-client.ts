@@ -1,4 +1,4 @@
-import { isPromise } from '@/utils/promise';
+import { isPromise } from '@/utils/is';
 import settings from '@/config/settings';
 import { createApp } from './main';
 

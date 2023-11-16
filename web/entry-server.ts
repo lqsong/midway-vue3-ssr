@@ -2,7 +2,7 @@ import { Readable } from 'stream';
 import { Context } from '@midwayjs/koa';
 import { RouteLocationRaw, RouteMeta } from 'vue-router';
 import { renderToString, renderToNodeStream } from 'vue/server-renderer';
-import { isPromise } from '@/utils/promise';
+import { isPromise } from '@/utils/is';
 import settings from '@/config/settings';
 import { createApp } from './main';
 
