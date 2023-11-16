@@ -3,7 +3,7 @@
  * @author LiQingSong
  */
 import { defineStore } from 'pinia';
-import { ResponseData } from '@/utils/request';
+import { IResponseData } from '@/@types/utils.request';
 import {
   TableListItem,
   PaginationConfig,
@@ -34,7 +34,7 @@ export const useAboutStore = defineStore('about', {
     async getList(params?: TableListQueryParams) {
       try {
         this.loading = true;
-        const response: ResponseData<ResponseDataType> = await queryList(
+        const response: IResponseData<ResponseDataType> = await queryList(
           params
         );
         const data = response.data;

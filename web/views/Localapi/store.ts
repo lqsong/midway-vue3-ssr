@@ -3,7 +3,7 @@
  * @author LiQingSong
  */
 import { defineStore } from 'pinia';
-import { ResponseData } from '@/utils/request';
+import { IResponseData } from '@/@types/utils.request';
 import { User } from './data.d';
 import { queryUser } from './service';
 
@@ -23,7 +23,7 @@ export const useUserStore = defineStore('user', {
     async getUser(uid: string) {
       try {
         this.loading = true;
-        const response: ResponseData<User> = await queryUser(uid);
+        const response: IResponseData<User> = await queryUser(uid);
         const data = response.data || {};
         if (data) {
           this.user = data;

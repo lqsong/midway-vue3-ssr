@@ -2,36 +2,31 @@
  * 站点配置
  * @author LiQingSong
  */
-export interface SettingsType {
-  /**
-   * 站点名称
-   */
-  siteTitle: string;
 
-  /**
-   * 站点本地存储Token 的 Key值
-   */
-  siteTokenKey: string;
+/**
+ * @description: 站点名称
+ */
+export const siteTitle = 'MIDWAY-VUE3-SSR';
 
-  /**
-   * Ajax请求头发送Token 的 Key值
-   */
-  ajaxHeadersTokenKey: string;
+/**
+ * @description: 站点本地存储Token 的 Key值
+ */
+export const siteTokenKey = 'midway_vue3_ssr_token';
 
-  /**
-   * Ajax返回值不参加统一验证的api地址
-   */
-  ajaxResponseNoVerifyUrl: string[];
-}
+/**
+ * @description: Ajax请求头发送Token 的 Key值
+ */
+export const ajaxHeadersTokenKey = 'x-token';
 
-const settings: SettingsType = {
-  siteTitle: 'MIDWAY-VUE3-SSR',
+/**
+ * @description: Ajax返回值不参加统一报错的api地址
+ */
+export const ajaxResponseNoVerifyUrl: string[] = [
+  '/user/login', // 用户登录
+  '/user/info', // 用户信息
+];
 
-  siteTokenKey: 'midway_vue3_ssr_token',
-  ajaxHeadersTokenKey: 'x-token',
-  ajaxResponseNoVerifyUrl: [
-    '/user/login', // 用户登录
-  ],
-};
-
-export default settings;
+/**
+ * @description: 平台用户登录的界面Url地址
+ */
+export const userLoginUrl = '/user/login';

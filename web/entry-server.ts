@@ -3,7 +3,7 @@ import { Context } from '@midwayjs/koa';
 import { RouteLocationRaw, RouteMeta } from 'vue-router';
 import { renderToString, renderToNodeStream } from 'vue/server-renderer';
 import { isPromise } from '@/utils/is';
-import settings from '@/config/settings';
+import { siteTitle } from '@/config/settings';
 import { createApp } from './main';
 
 export async function render(
@@ -22,7 +22,7 @@ export async function render(
   const routeMatched = route.value.matched;
 
   const meta = route.value.meta;
-  meta.title = `${meta.title}-${settings.siteTitle}`;
+  meta.title = `${meta.title}-${siteTitle}`;
   meta.keywords = meta.keywords || '';
   meta.description = meta.description || '';
 
@@ -69,7 +69,7 @@ export async function render(
   // seo 赋值(在页面生成之前,asyncDataFuncs之后)
   if (seoFun) {
     const seo = seoFun(config);
-    meta.title = seo.title ? `${seo.title}-${settings.siteTitle}` : meta.title;
+    meta.title = seo.title ? `${seo.title}-${siteTitle}` : meta.title;
     meta.keywords = seo.keywords || meta.keywords;
     meta.description = seo.description || meta.description;
   }

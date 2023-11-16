@@ -1,5 +1,5 @@
 import { isPromise } from '@/utils/is';
-import settings from '@/config/settings';
+import { siteTitle } from '@/config/settings';
 import { createApp } from './main';
 
 const { app, router, pinia } = createApp('web');
@@ -21,7 +21,7 @@ router.beforeResolve((to, from, next) => {
   const prevMatched = router.resolve(from).matched;
 
   const meta = to.meta || {};
-  meta.title = `${meta.title}-${settings.siteTitle}`;
+  meta.title = `${meta.title}-${siteTitle}`;
   meta.keywords = meta.keywords || '';
   meta.description = meta.description || '';
 
@@ -77,9 +77,7 @@ router.beforeResolve((to, from, next) => {
   const setSeo = () => {
     if (seoFun) {
       const seo = seoFun(config);
-      meta.title = seo.title
-        ? `${seo.title}-${settings.siteTitle}`
-        : meta.title;
+      meta.title = seo.title ? `${seo.title}-${siteTitle}` : meta.title;
       meta.keywords = seo.keywords || meta.keywords;
       meta.description = seo.description || meta.description;
     }

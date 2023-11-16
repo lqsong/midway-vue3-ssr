@@ -15,7 +15,7 @@ specifiers:
   '@types/koa': ^2.13.11
   '@types/node': '14'
   '@vitejs/plugin-vue': ^2.3.4
-  axios: ^0.21.4
+  axios: ^1.6.2
   cross-env: ^6.0.3
   element-plus: ^2.4.2
   jest: ^26.6.3
@@ -25,6 +25,7 @@ specifiers:
   nprogress: ^0.2.0
   only-allow: ^1.2.1
   pinia: ^2.1.7
+  qs: ^6.11.2
   rollup-plugin-analyzer: ^4.0.0
   sass: ^1.69.5
   ts-jest: ^26.5.6
@@ -44,7 +45,7 @@ dependencies:
   '@midwayjs/logger': registry.npmmirror.com/@midwayjs/logger/2.19.3
   '@midwayjs/static-file': registry.npmmirror.com/@midwayjs/static-file/3.12.10
   '@midwayjs/validate': registry.npmmirror.com/@midwayjs/validate/3.12.10
-  axios: registry.npmmirror.com/axios/0.21.4
+  axios: registry.npmmirror.com/axios/1.6.2
   cross-env: registry.npmmirror.com/cross-env/6.0.3
   element-plus: registry.npmmirror.com/element-plus/2.4.2_vue@3.3.8
   koa-connect: registry.npmmirror.com/koa-connect/2.1.0
@@ -52,6 +53,7 @@ dependencies:
   nprogress: registry.npmmirror.com/nprogress/0.2.0
   only-allow: registry.npmmirror.com/only-allow/1.2.1
   pinia: registry.npmmirror.com/pinia/2.1.7_typescript@4.6.4+vue@3.3.8
+  qs: registry.npmmirror.com/qs/6.11.2
   vite: registry.npmmirror.com/vite/2.9.16_sass@1.69.5
   vue: registry.npmmirror.com/vue/3.3.8_typescript@4.6.4
   vue-router: registry.npmmirror.com/vue-router/4.2.5_vue@3.3.8
@@ -2405,7 +2407,6 @@ packages:
     resolution: {integrity: sha512-Oei9OH4tRh0YqU3GxhX79dM/mwVgvbZJaSNaRk+bshkj0S5cfHcgYakreBjrHwatXKbz+IoIdYLxrKim2MjW0Q==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/asynckit/-/asynckit-0.4.0.tgz}
     name: asynckit
     version: 0.4.0
-    dev: true
 
   registry.npmmirror.com/atob/2.1.2:
     resolution: {integrity: sha512-Wm6ukoaOGJi/73p/cl2GvLjTI5JM1k/O14isD73YML8StrH/7/lRFgmg8nICZgD3bZZvjwCGxtMOD3wWNAu8cg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/atob/-/atob-2.1.2.tgz}
@@ -2415,12 +2416,14 @@ packages:
     hasBin: true
     dev: true
 
-  registry.npmmirror.com/axios/0.21.4:
-    resolution: {integrity: sha512-ut5vewkiu8jjGBdqpM44XxjuCjq9LAKeHVmoVfHVzy8eHgxxq8SbAVQNovDA8mVi05kP0Ea/n/UzcSHcTJQfNg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/axios/-/axios-0.21.4.tgz}
+  registry.npmmirror.com/axios/1.6.2:
+    resolution: {integrity: sha512-7i24Ri4pmDRfJTR7LDBhsOTtcm+9kjX5WiY1X3wIisx6G9So3pfMkEiU7emUBe46oceVImccTEM3k6C5dbVW8A==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/axios/-/axios-1.6.2.tgz}
     name: axios
-    version: 0.21.4
+    version: 1.6.2
     dependencies:
       follow-redirects: registry.npmmirror.com/follow-redirects/1.15.3
+      form-data: registry.npmmirror.com/form-data/4.0.0
+      proxy-from-env: registry.npmmirror.com/proxy-from-env/1.1.0
     transitivePeerDependencies:
       - debug
     dev: false
@@ -2958,7 +2961,6 @@ packages:
     engines: {node: '>= 0.8'}
     dependencies:
       delayed-stream: registry.npmmirror.com/delayed-stream/1.0.0
-    dev: true
 
   registry.npmmirror.com/compare-versions/6.1.0:
     resolution: {integrity: sha512-LNZQXhqUvqUTotpZ00qLSaify3b4VFD588aRr8MKFw4CMUr98ytzCW5wDH5qx/DEY5kCDXcbcRuCqL0szEf2tg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/compare-versions/-/compare-versions-6.1.0.tgz}
@@ -3296,7 +3298,6 @@ packages:
     name: delayed-stream
     version: 1.0.0
     engines: {node: '>=0.4.0'}
-    dev: true
 
   registry.npmmirror.com/delegates/1.0.0:
     resolution: {integrity: sha512-bd2L678uiWATM6m5Z1VzNCErI3jiGzt6HGY8OVICs40JQq/HALfbyNJmp0UDakEY4pMMaN0Ly5om/B1VI/+xfQ==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/delegates/-/delegates-1.0.0.tgz}
@@ -4337,7 +4338,6 @@ packages:
       asynckit: registry.npmmirror.com/asynckit/0.4.0
       combined-stream: registry.npmmirror.com/combined-stream/1.0.8
       mime-types: registry.npmmirror.com/mime-types/2.1.35
-    dev: true
 
   registry.npmmirror.com/formidable/2.1.2:
     resolution: {integrity: sha512-CM3GuJ57US06mlpQ47YcunuUZ9jpm8Vx+P2CGt2j7HpgkKZO/DJYQ0Bobim8G6PFQmK5lOqOOdUXboU+h73A4g==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/formidable/-/formidable-2.1.2.tgz}
@@ -7187,6 +7187,12 @@ packages:
       kleur: registry.npmmirror.com/kleur/3.0.3
       sisteransi: registry.npmmirror.com/sisteransi/1.0.5
     dev: true
+
+  registry.npmmirror.com/proxy-from-env/1.1.0:
+    resolution: {integrity: sha512-D+zkORCbA9f1tdWRK0RaCR3GPv50cMxcrz4X8k5LTSUD1Dkw47mKJEZQNunItRTkWwgtaUSo1RVFRIG9ZXiFYg==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/proxy-from-env/-/proxy-from-env-1.1.0.tgz}
+    name: proxy-from-env
+    version: 1.1.0
+    dev: false
 
   registry.npmmirror.com/psl/1.9.0:
     resolution: {integrity: sha512-E/ZsdU4HLs/68gYzgGTkMicWTLPdAftJLfJFlLUAAKZGkStNU72sZjT66SnMDVOfOWY/YAoiD7Jxa9iHvngcag==, registry: http://registry.npm.taobao.org/, tarball: https://registry.npmmirror.com/psl/-/psl-1.9.0.tgz}
