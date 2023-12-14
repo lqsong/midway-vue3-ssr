@@ -145,28 +145,45 @@ const errorHandler = (error: any) => {
     const noVerifyBool = ajaxResponseNoVerifyUrl.includes(reqUrl);
     if (!noVerifyBool) {
       // alert(customCodeMessage[code] || msg || "Error");
-      ElMessage.warning(customCodeMessage[code] || msg || 'Error');
 
       if (code === ResultCodeEnum.LOGININVALID) {
         // 如果未登录或失效，这里可以跳转到登录页面,这里只做了浏览器端的判断，服务器端需要在src/fiter/default.filter.ts默认过滤器中做判断
         if (typeof window === 'object') {
           // 浏览器端运行
+          ElMessage.warning(customCodeMessage[code] || msg || 'Error');
           window.location.href = userLoginUrl;
+        }
+      } else if (code === ResultCodeEnum.NOT_FOUND) {
+        if (typeof window === 'object') {
+          // window只存在于浏览器端
+          ElMessage.warning(customCodeMessage[code] || msg || 'Error');
+          window.location.href = '/404';
+        } else if (
+          typeof process !== 'undefined' &&
+          Object.prototype.toString.call(process) === '[object process]'
+        ) {
+          // 判断procss, nodejs
         }
       }
     }
   } else if (message === 'canceled') {
-    console.log('canceled', error);
+    if (typeof window === 'object') {
+      console.log('canceled', error);
+    }
   } else if (response && response.status) {
     const errorText = serverCodeMessage[response.status] || response.statusText;
     const { status, request } = response;
-    // alert(`请求错误 ${status}: ${request.responseURL}\n${errorText}`);
-    ElMessage.warning(
-      `请求错误 ${status}: ${request.responseURL}\n${errorText}`
-    );
+    if (typeof window === 'object') {
+      // alert(`请求错误 ${status}: ${request.responseURL}\n${errorText}`);
+      ElMessage.warning(
+        `请求错误 ${status}: ${request.responseURL}\n${errorText}`
+      );
+    }
   } else if (!response) {
-    // alert("网络异常：您的网络发生异常，无法连接服务器");
-    ElMessage.warning('网络异常：您的网络发生异常，无法连接服务器');
+    if (typeof window === 'object') {
+      // alert("网络异常：您的网络发生异常，无法连接服务器");
+      ElMessage.warning('网络异常：您的网络发生异常，无法连接服务器');
+    }
   }
 
   return Promise.reject(error);

@@ -9,6 +9,7 @@
 export enum ResultCodeEnum {
   SUCCESS = 0, // 成功
   LOGININVALID = 10002, // 登入信息失效
+  NOT_FOUND = 404, // 没有找到
 }
 
 /**
