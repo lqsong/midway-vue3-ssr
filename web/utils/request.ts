@@ -36,13 +36,20 @@ let requestPendingMap = new Map<string, Canceler>();
  * @param config 请求配置参数
  * @returns string
  */
-export const getRequestPendingUrl = (config: IAxiosRequestConfig) =>
-  [
+export const getRequestPendingUrl = (config: IAxiosRequestConfig) => {
+  let configData: any = config.data;
+  try {
+    configData = JSON.parse(config.data);
+  } catch (error) {
+    configData = config.data;
+  }
+  return [
     config.method,
     config.url,
-    qs.stringify(config.data),
+    qs.stringify(configData),
     qs.stringify(config.params),
   ].join('&');
+};
 
 /**
  * @description: 自定义请求消除器类
@@ -72,12 +79,16 @@ export class RequestCanceler {
    * @param config 请求配置参数
    * @returns void
    */
-  removePending(config: IAxiosRequestConfig) {
+  removePending(config: IAxiosRequestConfig, isCancel = true) {
     const url = getRequestPendingUrl(config);
     if (requestPendingMap.has(url)) {
-      // 如果在 pending 中存在当前请求标识，需要取消当前请求，并且移除
-      const cancel = requestPendingMap.get(url);
-      cancel && cancel();
+      // 如果在 pending 中存在当前请求标识
+      if (isCancel) {
+        //  isCancel = true，需要取消当前请求
+        const cancel = requestPendingMap.get(url);
+        cancel && cancel();
+      }
+      // 移除
       requestPendingMap.delete(url);
     }
   }
@@ -237,7 +248,7 @@ export class Request {
     this.ajax.interceptors.response.use(
       (response: AxiosResponse<IResponseData>) => {
         // 在请求结束后，移除本次请求
-        requestCanceler.removePending(response.config);
+        requestCanceler.removePending(response.config, false);
 
         const res = response.data;
         const { code } = res;
